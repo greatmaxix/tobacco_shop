@@ -10,8 +10,8 @@ services:
       POSTGRES_DB: tobacco_shop
     ports:
       - "5432:5432"
-#       volumes:
-#         - $HOME/Desktop/PostgreSql-Snippets/infile:/infile
-#         - pg_data:/var/lib/postgresql/data/
+      volumes:
+        - home/maksat/projects/tobacco_shop
+        - pg_data:/var/lib/postgresql/data/
 # volumes:
 #   pg_data:

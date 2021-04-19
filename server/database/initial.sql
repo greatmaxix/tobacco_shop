@@ -5,7 +5,7 @@
 -- DROP TABLE public.images;
 
 CREATE TABLE public.images (
-	id int4 NOT NULL DEFAULT nextval('images_seq'::regclass),
+	id SERIAL NOT NULL,
 	imageable_type varchar(255) NOT NULL,
 	imageable_id int4 NOT NULL,
 	alt_text varchar(255) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE public.images (
 -- DROP TABLE public.product_brands;
 
 CREATE TABLE public.product_brands (
-	id int4 NOT NULL,
+	id SERIAL NOT null,
 	brand_name varchar(255) NOT NULL,
 	brand_description varchar(255) NOT NULL,
 	CONSTRAINT brand_name_unique UNIQUE (brand_name),
@@ -36,7 +36,7 @@ CREATE TABLE public.product_brands (
 -- DROP TABLE public.product_types;
 
 CREATE TABLE public.product_types (
-	id int4 NOT NULL DEFAULT nextval('product_types_seq'::regclass),
+	id SERIAL NOT NULL,
 	"type" varchar(255) NOT NULL,
 	CONSTRAINT product_types_pkey PRIMARY KEY (id)
 );
@@ -49,7 +49,7 @@ CREATE TABLE public.product_types (
 -- DROP TABLE public.roles;
 
 CREATE TABLE public.roles (
-	id int4 NOT NULL,
+	id SERIAL NOT NULL,
 	role_title varchar(255) NOT NULL,
 	role_description varchar(255) NOT NULL,
 	CONSTRAINT roles_pkey PRIMARY KEY (id)
@@ -63,8 +63,8 @@ CREATE TABLE public.roles (
 -- DROP TABLE public.shops;
 
 CREATE TABLE public.shops (
-	id int4 NOT NULL DEFAULT nextval('shops_seq'::regclass),
-	"name" int4 NOT NULL,
+	id SERIAL NOT NULL,
+	"name" varchar(255) NOT NULL,
 	address varchar(255) NOT NULL,
 	CONSTRAINT shops_pkey PRIMARY KEY (id)
 );
@@ -77,7 +77,7 @@ CREATE TABLE public.shops (
 -- DROP TABLE public.staff;
 
 CREATE TABLE public.staff (
-	id int4 NOT NULL,
+	id SERIAL NOT NULL,
 	staff_first_name varchar(255) NOT NULL,
 	staff_last_name varchar(255) NOT NULL,
 	started_work_at timestamp(0) NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE public.staff (
 -- DROP TABLE public.products;
 
 CREATE TABLE public.products (
-	id int4 NOT NULL DEFAULT nextval('products_seq'::regclass),
+	id SERIAL NOT NULL,
 	title varchar(255) NOT NULL,
 	description varchar(255) NOT NULL,
 	created_at timestamp(0) NULL DEFAULT now(),
@@ -115,7 +115,7 @@ CREATE TABLE public.products (
 -- DROP TABLE public.staff_mobiles;
 
 CREATE TABLE public.staff_mobiles (
-	id int4 NOT NULL DEFAULT nextval('staff_mobiles_seq'::regclass),
+	id SERIAL NOT NULL,
 	mobile varchar(45) NOT NULL,
 	staff_id int4 NOT NULL,
 	CONSTRAINT staff_mobiles_pkey PRIMARY KEY (id),
@@ -160,7 +160,7 @@ CREATE TABLE public.staff_shops (
 -- DROP TABLE public.warehouses;
 
 CREATE TABLE public.warehouses (
-	id int4 NOT NULL DEFAULT nextval('warehouses_seq'::regclass),
+	id SERIAL NOT NULL,
 	shop_id int4 NOT NULL,
 	quantity int4 NOT NULL,
 	CONSTRAINT warehouses_pkey PRIMARY KEY (id),
@@ -175,7 +175,7 @@ CREATE TABLE public.warehouses (
 -- DROP TABLE public.invoices;
 
 CREATE TABLE public.invoices (
-	id int4 NOT NULL DEFAULT nextval('invoices_seq'::regclass),
+	id  SERIAL NOT NULL,
 	created_at timestamp(0) NULL,
 	products_id int4 NOT NULL,
 	staff_id int4 NOT NULL,

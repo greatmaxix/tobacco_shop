@@ -7,6 +7,7 @@ import { ProductsModule } from './products/products.module';
 import { ProductTypesModule } from './product-types/product-types.module';
 import { InvoicesModule } from './invoices/invoices.module';
 import { ProductWarehouseModule } from './product-warehouse/product-warehouse.module';
+import { ShopsModule } from './shops/shops.module';
 import { WarehousesModule } from './warehouses/warehouses.module';
 import { ProductWarehouseModule } from './product-warehouse/product-warehouse.module';
 
@@ -19,6 +20,7 @@ import { ProductWarehouseModule } from './product-warehouse/product-warehouse.mo
     InvoicesModule,
     ProductWarehouseModule,
     WarehousesModule,
+    ShopsModule,
   ],
   controllers: [ImagesController],
 })

@@ -1,5 +1,4 @@
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-// import { PolymorphicParent } from "typeorm-polymorphic";
 
 @Entity()
 export class Task extends BaseEntity {
@@ -16,5 +15,5 @@ export class Task extends BaseEntity {
     alt_text: string;
 
     @Column()
-    image_blob: string;
+    image_blob: Blob;
 }

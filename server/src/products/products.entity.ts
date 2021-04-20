@@ -10,10 +10,10 @@ export class Products extends BaseEntity {
     id: number;
 
     @Column()
-    brand_name: string;
+    title: string;
 
     @Column()
-    brand_description: string;
+    description: string;
 
     @ManyToOne(type => ProductBrands, productBrands => productBrands.products, { eager: false })
     productBrand: ProductBrands;

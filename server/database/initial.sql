@@ -162,7 +162,6 @@ CREATE TABLE public.staff_shops (
 CREATE TABLE public.warehouses (
 	id SERIAL NOT NULL,
 	shop_id int4 NOT NULL,
-	quantity int4 NOT NULL,
 	CONSTRAINT warehouses_pkey PRIMARY KEY (id),
 	CONSTRAINT fk_warehouse_shop FOREIGN KEY (shop_id) REFERENCES shops(id)
 );

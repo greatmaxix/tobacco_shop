@@ -6,6 +6,9 @@ import { ProductBrandsModule } from './product-brands/product-brands.module';
 import { ProductsModule } from './products/products.module';
 import { ProductTypesModule } from './product-types/product-types.module';
 import { InvoicesModule } from './invoices/invoices.module';
+import { ProductWarehouseModule } from './product-warehouse/product-warehouse.module';
+import { WarehousesModule } from './warehouses/warehouses.module';
+import { ProductWarehouseModule } from './product-warehouse/product-warehouse.module';
 
 @Module({
   imports: [
@@ -14,6 +17,8 @@ import { InvoicesModule } from './invoices/invoices.module';
     ProductsModule,
     ProductTypesModule,
     InvoicesModule,
+    ProductWarehouseModule,
+    WarehousesModule,
   ],
   controllers: [ImagesController],
 })

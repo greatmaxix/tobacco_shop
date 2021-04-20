@@ -1,7 +1,8 @@
 import { Invoices } from "src/invoices/invoices.entity";
 import { ProductTypes } from "src/product-types/product-types.entity";
-import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ProductBrands } from "./product-brands.entity";
+import { ProductWarehouse } from "src/product-warehouse/product-warehouse.entity";
+import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ProductBrands } from "../product-brands/product-brands.entity";
 
 @Entity()
 export class Products extends BaseEntity {
@@ -22,4 +23,7 @@ export class Products extends BaseEntity {
 
     @ManyToMany(type => Invoices, invoices => invoices.products, { eager: false })
     invoices: Invoices;
+
+    @OneToMany(type => ProductWarehouse, productWarehouse => productWarehouse.products, { eager: false })
+    productWarehouse: ProductWarehouse;
 }

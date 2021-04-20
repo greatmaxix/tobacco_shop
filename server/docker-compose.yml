@@ -3,15 +3,12 @@ services:
   db:
     container_name: pg_container
     image: postgres
-    # restart: always
+    restart: always
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
       POSTGRES_DB: tobacco_shop
     ports:
-      - "5432:5432"
-      volumes:
-        - home/maksat/projects/tobacco_shop
-        - pg_data:/var/lib/postgresql/data/
-# volumes:
-#   pg_data:
+      - "5433:5432"
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data/ 

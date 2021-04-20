@@ -177,11 +177,11 @@ CREATE TABLE public.warehouses (
 CREATE TABLE public.invoices (
 	id  SERIAL NOT NULL,
 	created_at timestamp(0) NULL,
-	products_id int4 NOT NULL,
+	-- products_id int4 NOT NULL,
 	staff_id int4 NOT NULL,
 	shops_id int4 NOT NULL,
 	CONSTRAINT invoices_pkey PRIMARY KEY (id),
-	CONSTRAINT fk_invoices_products1 FOREIGN KEY (products_id) REFERENCES products(id),
+	-- CONSTRAINT fk_invoices_products1 FOREIGN KEY (products_id) REFERENCES products(id),
 	CONSTRAINT fk_invoices_shops1 FOREIGN KEY (shops_id) REFERENCES shops(id),
 	CONSTRAINT fk_invoices_staff1 FOREIGN KEY (staff_id) REFERENCES staff(id)
 );
@@ -200,4 +200,11 @@ CREATE TABLE public.product_warehouse (
 	CONSTRAINT product_warehouse_pkey PRIMARY KEY (products_id, warehouse_id),
 	CONSTRAINT fk_products_has_warehouse_products1 FOREIGN KEY (products_id) REFERENCES products(id),
 	CONSTRAINT fk_products_has_warehouse_warehouse1 FOREIGN KEY (warehouse_id) REFERENCES warehouses(id)
+);
+
+CREATE TABLE public.invoice_products (
+	invoice_id int8 NOT NULL,
+	product_id int8 NOT NULL,
+	CONSTRAINT invoice_products_fk FOREIGN KEY (invoice_id) REFERENCES public.invoices(id),
+	CONSTRAINT invoice_products_fk_1 FOREIGN KEY (product_id) REFERENCES public.products(id)
 );

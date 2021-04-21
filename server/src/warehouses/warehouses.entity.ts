@@ -4,7 +4,7 @@ import { Shops } from "src/shops/shops.entity";
 import { BaseEntity, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Warehouse extends BaseEntity {
+export class Warehouses extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

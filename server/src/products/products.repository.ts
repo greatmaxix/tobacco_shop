@@ -1,9 +1,9 @@
 import { ProductBrands } from "src/product-brands/product-brands.entity";
 import { ProductTypes } from "src/product-types/product-types.entity";
 import { EntityRepository, Repository } from "typeorm";
-import { CreateProductDto } from "./dto/create-product-filter.dto";
-import { GetProductsFilterDto } from "./dto/get-products-filter.dto";
-import { Products } from "./products.entity";
+import { CreateProductDto } from "src/products/dto/create-product-filter.dto";
+import { GetProductsFilterDto } from "src/products/dto/get-products-filter.dto";
+import { Products } from "src/products/products.entity";
 
 @EntityRepository(Products)
 export class ProductsRepository extends Repository<Products> {

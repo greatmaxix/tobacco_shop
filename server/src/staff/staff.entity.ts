@@ -1,6 +1,6 @@
 import { Roles } from "src/roles/roles.entity";
 import { Shops } from "src/shops/shops.entity";
-import { StaffMobiles } from "src/staff-mobiles/staff_mobiles.entity";
+import { StaffMobiles } from "src/staff-mobiles/staff-mobiles.entity";
 import { BaseEntity, Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

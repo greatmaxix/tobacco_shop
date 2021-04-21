@@ -1,4 +1,5 @@
-import { Controller, Get, Logger, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Get, Logger, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
+import { CreateImageDto } from './dto/create-image.dto';
 import { GetImagesFilterDto } from './dto/get-images-filter.dto';
 import { Images } from './images.entity';
 import { ImagesService } from './images.service';
@@ -14,5 +15,12 @@ export class ImagesController {
         filterDto: GetImagesFilterDto,
     ) : Promise<Images[]> {
         return this.imagesService.getImages(filterDto);
+    }
+
+    @Post()
+    createImage(
+        createImageDto: CreateImageDto,
+    ) : Promise<Images> {
+        return this.imagesService.createImage(createImageDto);
     }
 }

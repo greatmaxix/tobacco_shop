@@ -1,5 +1,5 @@
 import { Staff } from "src/staff/staff.entity";
-import { Warehouse } from "src/warehouses/warehouses.entity";
+import { Warehouses } from "src/warehouses/warehouses.entity";
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -13,8 +13,8 @@ export class Shops extends BaseEntity {
     @Column()
     address: string;
 
-    @ManyToOne(type => Warehouse, warehouses => warehouses.shop, { eager: false })
-    warehouses: Warehouse;
+    @ManyToOne(type => Warehouses, warehouses => warehouses.shop, { eager: false })
+    warehouses: Warehouses;
 
     @ManyToOne(type => Staff, staff => staff.shops, { eager: false })
     staff: Staff;

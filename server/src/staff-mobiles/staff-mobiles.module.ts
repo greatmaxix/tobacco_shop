@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
-import { StaffMobilesController } from './staff-mobiles.controller';
-import { StaffMobilesService } from './staff-mobiles.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { StaffMobilesController } from 'src/staff-mobiles/staff-mobiles.controller';
+import { StaffMobilesRepository } from 'src/staff-mobiles/staff-mobiles.repository';
+import { StaffMobilesService } from 'src/staff-mobiles/staff-mobiles.service';
 
 @Module({
+  imports: [
+    TypeOrmModule.forFeature([StaffMobilesRepository]),
+  ],
   controllers: [StaffMobilesController],
   providers: [StaffMobilesService]
 })

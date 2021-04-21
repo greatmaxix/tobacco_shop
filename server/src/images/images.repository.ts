@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from "typeorm";
-import { GetImagesFilterDto } from "./dto/get-images-filter.dto";
-import { Images } from "./images.entity";
+import { GetImagesFilterDto } from "src/images/dto/get-images-filter.dto";
+import { Images } from "src/images/images.entity";
 
 @EntityRepository(Images)
 export class ImagesRepository extends Repository<Images> {

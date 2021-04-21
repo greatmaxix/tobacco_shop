@@ -98,7 +98,6 @@ CREATE TABLE public.products (
 	title varchar(255) NOT NULL,
 	description varchar(255) NOT NULL,
 	created_at timestamp(0) NULL DEFAULT now(),
-	productscol varchar(45) NULL,
 	"cost" varchar(255) NOT NULL,
 	product_types_id int4 NOT NULL,
 	product_brands_id int4 NOT NULL,

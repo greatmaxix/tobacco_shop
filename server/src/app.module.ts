@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
-import { ImagesController } from './images/images.controller';
 import { ProductBrandsModule } from './product-brands/product-brands.module';
 import { ProductsModule } from './products/products.module';
 import { ProductTypesModule } from './product-types/product-types.module';
@@ -12,6 +11,7 @@ import { ShopsModule } from './shops/shops.module';
 import { WarehousesModule } from './warehouses/warehouses.module';
 import { StaffModule } from './staff/staff.module';
 import { StaffMobilesModule } from './staff-mobiles/staff-mobiles.module';
+import { ImagesModule } from './images/images.module';
 
 @Module({
   imports: [
@@ -26,7 +26,7 @@ import { StaffMobilesModule } from './staff-mobiles/staff-mobiles.module';
     RolesModule,
     StaffModule,
     StaffMobilesModule,
+    ImagesModule
   ],
-  controllers: [ImagesController],
 })
 export class AppModule {}

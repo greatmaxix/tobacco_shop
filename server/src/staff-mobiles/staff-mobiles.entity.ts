@@ -1,5 +1,4 @@
 import { Staff } from "src/staff/staff.entity";
-import { Warehouse } from "src/warehouses/warehouses.entity";
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()

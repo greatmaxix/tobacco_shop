@@ -14,4 +14,10 @@ export class Invoices extends BaseEntity {
 
     @ManyToMany(type => Products, products => products.invoices, { eager: false })
     products: Products;
+
+    @Column({ type: 'timestamp', nullable: true })
+    created_at: Date;
+
+    @Column({ type: 'timestamp', nullable: true })
+    updated_at: Date;
 }

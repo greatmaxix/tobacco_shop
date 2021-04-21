@@ -26,4 +26,10 @@ export class Products extends BaseEntity {
 
     @OneToMany(type => ProductWarehouse, productWarehouse => productWarehouse.products, { eager: false })
     productWarehouse: ProductWarehouse;
+
+    @Column({ type: 'timestamp', nullable: true })
+    created_at: Date;
+
+    @Column({ type: 'timestamp', nullable: true })
+    updated_at: Date;
 }

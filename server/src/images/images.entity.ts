@@ -14,6 +14,6 @@ export class Images extends BaseEntity {
     @Column()
     alt_text: string;
 
-    @Column()
-    image_blob: string;
+    @Column({ type: "bytea", nullable: false })
+    image_blob: Buffer;
 }

@@ -12,6 +12,9 @@ import { WarehousesModule } from './warehouses/warehouses.module';
 import { StaffModule } from './staff/staff.module';
 import { StaffMobilesModule } from './staff-mobiles/staff-mobiles.module';
 import { ImagesModule } from './images/images.module';
+import { AuditService } from './audit/audit.service';
+import { AuditController } from './audit/audit.controller';
+import { AuditModule } from './audit/audit.module';
 
 @Module({
   imports: [
@@ -26,7 +29,10 @@ import { ImagesModule } from './images/images.module';
     RolesModule,
     StaffModule,
     StaffMobilesModule,
-    ImagesModule
+    ImagesModule,
+    AuditModule
   ],
+  providers: [AuditService],
+  controllers: [AuditController],
 })
 export class AppModule {}

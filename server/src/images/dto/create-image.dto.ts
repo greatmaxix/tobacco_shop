@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateImageDto {
     @IsNotEmpty()
@@ -8,7 +8,6 @@ export class CreateImageDto {
     imageable_id: number;
 
     @IsNotEmpty()
-    @IsOptional()
     alt_text: string;
 
     @IsNotEmpty()

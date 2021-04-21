@@ -1,4 +1,5 @@
-import { Controller, Get, Logger, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Param, ParseIntPipe, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateImageDto } from './dto/create-image.dto';
 import { GetImagesFilterDto } from './dto/get-images-filter.dto';
 import { Images } from './images.entity';
@@ -18,9 +19,11 @@ export class ImagesController {
     }
 
     @Post()
+    @UseInterceptors(FileInterceptor('image_blob'))
     createImage(
-        createImageDto: CreateImageDto,
+        @UploadedFile() image,
+        @Body() createImageDto: CreateImageDto,
     ) : Promise<Images> {
-        return this.imagesService.createImage(createImageDto);
+        return this.imagesService.createImage(image, createImageDto);
     }
 }

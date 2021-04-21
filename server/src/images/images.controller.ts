@@ -10,7 +10,7 @@ export class ImagesController {
     constructor(private imagesService: ImagesService) {};
 
     @Get()
-    getProducts(
+    getImages(
         filterDto: GetImagesFilterDto,
     ) : Promise<Images[]> {
         return this.imagesService.getImages(filterDto);

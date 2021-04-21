@@ -1,7 +1,7 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Task extends BaseEntity {
+export class Images extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

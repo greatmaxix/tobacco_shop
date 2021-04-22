@@ -8,6 +8,9 @@ export class CreateProductDto {
     description: string;
 
     @IsNotEmpty()
+    cost: number;
+
+    @IsNotEmpty()
     productBrandId: number;
     
     @IsNotEmpty()

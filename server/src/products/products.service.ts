@@ -47,9 +47,10 @@ export class ProductsService {
 
     async updateTaskStatus(id: number, createProductDto: CreateProductDto, productBrand: ProductBrands, productType: ProductTypes) : Promise<Products> {
         let product = await this.getProductById(id);
-        const { title, description } = createProductDto;
+        const { title, description, cost } = createProductDto;
         product.title = title;
         product.description = description;
+        product.cost = cost;
         product.productBrand = productBrand;
         product.productType = productType;
         await product.save();

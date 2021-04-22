@@ -1,3 +1,4 @@
+import { Invoices } from "src/invoices/invoices.entity";
 import { Roles } from "src/roles/roles.entity";
 import { Shops } from "src/shops/shops.entity";
 import { StaffMobiles } from "src/staff-mobiles/staff-mobiles.entity";
@@ -31,4 +32,7 @@ export class Staff extends BaseEntity {
 
     @OneToMany(type => StaffMobiles, staffMobiles => staffMobiles.staff, { eager: false })
     staffMobiles: StaffMobiles;
+
+    @OneToMany(type => Invoices, invoices => invoices.staff, { eager: false })
+    invoices: Invoices;
 }

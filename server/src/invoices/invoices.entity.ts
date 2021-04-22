@@ -1,18 +1,19 @@
 import { Products } from "src/products/products.entity";
-import { BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Staff } from "src/staff/staff.entity";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Invoices extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    brand_name: string;
+    @ManyToOne(type => Staff, staff => staff.invoices, { eager: false })
+    staff: Staff;
 
     @Column()
-    brand_description: string;
+    total_cost: number;
 
-    @ManyToMany(type => Products, products => products.invoices, { eager: false })
+    @OneToMany(type => Products, products => products.invoices, { eager: false })
     products: Products;
 
     @Column({ type: 'timestamp', nullable: true })

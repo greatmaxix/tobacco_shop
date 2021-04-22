@@ -15,6 +15,8 @@ import { ImagesModule } from './images/images.module';
 import { AuditService } from './audit/audit.service';
 import { AuditController } from './audit/audit.controller';
 import { AuditModule } from './audit/audit.module';
+import { ProductInvoiceService } from './product-invoice/product-invoice.service';
+import { ProductInvoiceModule } from './product-invoice/product-invoice.module';
 
 @Module({
   imports: [
@@ -30,9 +32,8 @@ import { AuditModule } from './audit/audit.module';
     StaffModule,
     StaffMobilesModule,
     ImagesModule,
-    AuditModule
+    AuditModule,
+    ProductInvoiceModule
   ],
-  providers: [AuditService],
-  controllers: [AuditController],
 })
 export class AppModule {}

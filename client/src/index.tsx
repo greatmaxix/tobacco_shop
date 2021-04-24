@@ -12,6 +12,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthService from './services/authService';
 import ProductsService from './services/productsService';
 import ProductStore from './stores/ProductStore';
+import ImagesService from './services/imagesService';
+import ImagesStore from './stores/ImagesStore';
 
 const services: any = {};
 const stores: any = {
@@ -23,9 +25,11 @@ const history = syncHistoryWithStore(browserHistory, stores.routerStore);
 
 services.productsService = new ProductsService(stores.routerStore);
 services.authService = new AuthService(stores.routerStore);
+services.imagesService = new ImagesService(stores.routerStore);
 
 stores.productsStore = new ProductStore(services.tasksService);
 stores.userStore = new StaffStore(services.authService);
+stores.imagesStore = new ImagesStore(services.imagesService);
 
 ReactDOM.render(
   <Provider {...stores}>

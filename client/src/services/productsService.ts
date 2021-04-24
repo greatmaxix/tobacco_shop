@@ -39,6 +39,6 @@ export default class ProductsService extends BaseHttpService {
   }
 
   createProduct(data: ProductDto) {
-    return this.post(`tasks`, data);
+    return this.post(ProductsService.url, data);
   }
 }

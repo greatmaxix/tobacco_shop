@@ -14,7 +14,7 @@ export class Invoices extends BaseEntity {
     total_cost: number;
 
     @OneToMany(type => Products, products => products.invoices, { eager: false })
-    products: Products;
+    products: Products[];
 
     @Column({ type: 'timestamp', nullable: true })
     created_at: Date;

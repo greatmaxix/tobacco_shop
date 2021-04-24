@@ -7,6 +7,7 @@ import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { createBrowserHistory } from 'history';
 import { Provider } from 'mobx-react';
 import { Router } from 'react-router';
+import StaffStore from './stores/StaffStore';
 
 const services: any = {};
 const stores: any = {
@@ -20,7 +21,7 @@ const history = syncHistoryWithStore(browserHistory, stores.routerStore);
 // services.authService = new AuthService();
 
 // stores.tasksStore = new TasksStore(services.tasksService);
-// stores.userStore = new UserStore(services.authService);
+stores.userStore = new StaffStore(services.authService);
 
 ReactDOM.render(
   <Provider {...stores}>

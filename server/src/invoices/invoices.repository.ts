@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from "typeorm";
 import { Invoices } from "src/invoices/invoices.entity";
-import { GetInvoicesFilterDto } from "./dto/get-invoices-filter.dto";
-import { CreateInvoiceDto } from "./dto/create-invoice.dto";
+import { GetInvoicesFilterDto } from "src/invoices/dto/get-invoices-filter.dto";
+import { CreateInvoiceDto } from "src/invoices/dto/create-invoice.dto";
 import { Staff } from "src/staff/staff.entity";
 
 @EntityRepository(Invoices)

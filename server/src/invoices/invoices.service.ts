@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Staff } from 'src/staff/staff.entity';
-import { CreateInvoiceDto } from './dto/create-invoice.dto';
-import { GetInvoicesFilterDto } from './dto/get-invoices-filter.dto';
-import { Invoices } from './invoices.entity';
-import { InvoicesRepository } from './invoices.repository';
+import { CreateInvoiceDto } from 'src/invoices/dto/create-invoice.dto';
+import { GetInvoicesFilterDto } from 'src/invoices/dto/get-invoices-filter.dto';
+import { Invoices } from 'src/invoices/invoices.entity';
+import { InvoicesRepository } from 'src/invoices/invoices.repository';
 
 @Injectable()
 export class InvoicesService {

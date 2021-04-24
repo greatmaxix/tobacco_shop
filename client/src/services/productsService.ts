@@ -1,6 +1,8 @@
 import BaseHttpService from './baseHttpService';
 import queryString from 'query-string';
 
+
+
 type ProductDto = {
   title: null | string,
   description: null | string,
@@ -18,11 +20,11 @@ export default class ProductsService extends BaseHttpService {
       queryObj.title = title;
     }
 
-    if (product_types_id.length) {
+    if (product_types_id && product_types_id.length) {
       queryObj.product_types_id = product_types_id;
     }
 
-    if (product_brands_id.length) {
+    if (product_brands_id && product_brands_id.length) {
       queryObj.product_brands_id = product_brands_id;
     }
 

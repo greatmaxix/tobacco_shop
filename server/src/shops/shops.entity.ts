@@ -13,7 +13,7 @@ export class Shops extends BaseEntity {
     @Column()
     address: string;
 
-    @ManyToOne(type => Warehouses, warehouses => warehouses.shop, { eager: false })
+    @ManyToOne(type => Warehouses, warehouses => warehouses.shops, { eager: false })
     warehouses: Warehouses;
 
     @ManyToOne(type => Staff, staff => staff.shops, { eager: false })

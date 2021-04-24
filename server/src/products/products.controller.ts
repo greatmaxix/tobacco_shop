@@ -15,7 +15,7 @@ export class ProductsController {
 
     @Get()
     getProducts(
-        filterDto: GetProductsFilterDto,
+        @Body() filterDto: GetProductsFilterDto,
     ) : Promise<Products[]> {
         return this.productsService.getProducts(filterDto);
     }

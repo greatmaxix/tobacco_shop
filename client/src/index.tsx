@@ -10,6 +10,8 @@ import { Router } from 'react-router';
 import StaffStore from './stores/StaffStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthService from './services/authService';
+import ProductsService from './services/productsService';
+import ProductStore from './stores/ProductStore';
 
 const services: any = {};
 const stores: any = {
@@ -19,10 +21,10 @@ stores.routerStore = new RouterStore();
 const browserHistory = createBrowserHistory();
 const history = syncHistoryWithStore(browserHistory, stores.routerStore);
 
-// services.tasksService = new TasksService(stores.routerStore);
+services.productsService = new ProductsService(stores.routerStore);
 services.authService = new AuthService(stores.routerStore);
 
-// stores.tasksStore = new TasksStore(services.tasksService);
+stores.productsStore = new ProductStore(services.tasksService);
 stores.userStore = new StaffStore(services.authService);
 
 ReactDOM.render(

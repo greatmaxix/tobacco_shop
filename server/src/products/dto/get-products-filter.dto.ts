@@ -12,4 +12,10 @@ export class GetProductsFilterDto {
     @IsOptional()
     @IsNotEmpty()
     product_brands_id: number;
+
+    @IsNotEmpty()
+    limit: number;
+
+    @IsNotEmpty()
+    offset: number;
 }

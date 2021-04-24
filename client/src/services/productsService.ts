@@ -5,8 +5,8 @@ type ProductDto = {
   title: null | string,
   description: null | string,
   cost: null | number,
-  productBrandId: null | number,
-  productTypeId: null | number,
+  productBrandId: null | any,
+  productTypeId: null | any,
 }
 
 export default class ProductsService extends BaseHttpService {

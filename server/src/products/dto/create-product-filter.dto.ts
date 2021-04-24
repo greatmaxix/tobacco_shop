@@ -10,9 +10,9 @@ export class CreateProductDto {
     @IsNotEmpty()
     cost: number;
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     productBrandId: number;
     
-    @IsNotEmpty()
+    // @IsNotEmpty()
     productTypeId: number;
 }

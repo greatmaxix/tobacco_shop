@@ -15,7 +15,7 @@ export class ProductsService {
     ) {}
 
     async getProducts(filterDto: GetProductsFilterDto) : Promise<Products[]> {
-        return this.productsRepository.getTasks(filterDto);
+        return this.productsRepository.getProducts(filterDto);
     }
 
     async getProductById(id: number) : Promise<Products> {

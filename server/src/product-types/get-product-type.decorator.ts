@@ -3,5 +3,5 @@ import { ProductTypes } from "./product-types.entity";
 
 export const GetProductType = createParamDecorator((data, ctx: ExecutionContext): ProductTypes => {
     const req = ctx.switchToHttp().getRequest();
-    return req.productType;
+    return  req.body.productType;
 });

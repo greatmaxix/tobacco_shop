@@ -20,10 +20,10 @@ export class Staff extends BaseEntity {
     @Column()
     staff_last_name: string;
 
-    @Column()
+    @Column({nullable: true})
     started_work_at: string;
 
-    @Column()
+    @Column({nullable: true})
     stopped_work_at: string;
 
     @Column()

@@ -7,7 +7,7 @@ import { Products } from "src/products/products.entity";
 
 @EntityRepository(Products)
 export class ProductsRepository extends Repository<Products> {
-    async getTasks(filterDto: GetProductsFilterDto) : Promise<Products[]> {
+    async getProducts(filterDto: GetProductsFilterDto) : Promise<Products[]> {
         const { title, product_types_id, product_brands_id } = filterDto;
         const query = this.createQueryBuilder('products');
 
@@ -22,6 +22,9 @@ export class ProductsRepository extends Repository<Products> {
         if (product_brands_id) {
             query.andWhere('products.product_brands_id = :product_brands_id', { product_brands_id });
         }
+
+        query.limit(filterDto.limit ? filterDto.limit : 10);
+        query.offset(filterDto.offset ? filterDto.offset : 0);
 
         const products = await query.getMany();
         return products;

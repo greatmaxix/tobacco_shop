@@ -7,8 +7,8 @@ type ProductDto = {
   title: null | string,
   description: null | string,
   cost: null | number,
-  productBrandId: null | number,
-  productTypeId: null | number,
+  productBrandId: null | any,
+  productTypeId: null | any,
 }
 
 export default class ProductsService extends BaseHttpService {
@@ -41,6 +41,6 @@ export default class ProductsService extends BaseHttpService {
   }
 
   createProduct(data: ProductDto) {
-    return this.post(`tasks`, data);
+    return this.post(ProductsService.url, data);
   }
 }

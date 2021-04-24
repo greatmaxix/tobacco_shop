@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { GetProductBrand } from 'src/product-brands/get-product-brand.decorator';
 import { ProductBrands } from 'src/product-brands/product-brands.entity';
 import { GetProductType } from 'src/product-types/get-product-type.decorator';
@@ -20,6 +21,7 @@ export class ProductsController {
     }
 
     @Post()
+    @UseGuards(AuthGuard())
     createProduct(
         @Body() createProductDto: CreateProductDto,
         @GetProductBrand() productBrand: ProductBrands,
@@ -29,6 +31,7 @@ export class ProductsController {
     }
 
     @Delete('/:id')
+    @UseGuards(AuthGuard())
     deleteProduct(
         @Param('id', ParseIntPipe) id: number,
     ) : Promise<void> {
@@ -36,6 +39,7 @@ export class ProductsController {
     }
 
     @Patch('/:id')
+    @UseGuards(AuthGuard())
     updateProduct(
         @Param('id', ParseIntPipe) id: number,
         @Body() createProductDto: CreateProductDto,

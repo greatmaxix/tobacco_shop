@@ -3,6 +3,7 @@ import { Invoices } from "src/invoices/invoices.entity";
 import { GetInvoicesFilterDto } from "src/invoices/dto/get-invoices-filter.dto";
 import { CreateInvoiceDto } from "src/invoices/dto/create-invoice.dto";
 import { Staff } from "src/staff/staff.entity";
+import { Products } from "src/products/products.entity";
 
 @EntityRepository(Invoices)
 export class InvoicesRepository extends Repository<Invoices> {
@@ -26,6 +27,7 @@ export class InvoicesRepository extends Repository<Invoices> {
         const { products } = createInvoiceDto;
         const invoice = new Invoices();
         invoice.products = products;
+        invoice.total_cost = this.getProductsTotalCost(products);
         invoice.staff = staff;
         await invoice.save();
 
@@ -36,8 +38,17 @@ export class InvoicesRepository extends Repository<Invoices> {
         const { products } = createInvoiceDto;
         const invoice = new Invoices();
         invoice.products = products;
+        invoice.total_cost = this.getProductsTotalCost(products);
         invoice.staff = staff;
         await invoice.save();
         return invoice;
+    }
+
+    private getProductsTotalCost(products: Products[]) : number {
+        let total: number = 0;
+        for (let i = 0; i < products.length; i++) {
+            total += products[i].cost;
+        }
+        return total;
     }
 }

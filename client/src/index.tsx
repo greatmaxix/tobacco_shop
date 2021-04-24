@@ -8,6 +8,8 @@ import { createBrowserHistory } from 'history';
 import { Provider } from 'mobx-react';
 import { Router } from 'react-router';
 import StaffStore from './stores/StaffStore';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthService from './services/authService';
 
 const services: any = {};
 const stores: any = {
@@ -18,7 +20,7 @@ const browserHistory = createBrowserHistory();
 const history = syncHistoryWithStore(browserHistory, stores.routerStore);
 
 // services.tasksService = new TasksService(stores.routerStore);
-// services.authService = new AuthService();
+services.authService = new AuthService(stores.routerStore);
 
 // stores.tasksStore = new TasksStore(services.tasksService);
 stores.userStore = new StaffStore(services.authService);

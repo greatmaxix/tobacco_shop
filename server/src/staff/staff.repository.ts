@@ -3,6 +3,7 @@ import { Staff } from "src/staff/staff.entity";
 import * as bcrypt from 'bcrypt';
 import { ConflictException, InternalServerErrorException } from "@nestjs/common";
 import { AuthCredentialsDto } from "./dto/auth-credentials.dto";
+import { AuthSignInCredentialsDto } from 'src/staff/dto/auth-signin-credentials';
 
 @EntityRepository(Staff)
 export class StaffRepository extends Repository<Staff> {
@@ -29,7 +30,7 @@ export class StaffRepository extends Repository<Staff> {
         }
     }
 
-    async validateUserPassword(authCredentialsDto: AuthCredentialsDto) : Promise<string> {
+    async validateUserPassword(authCredentialsDto: AuthCredentialsDto | AuthSignInCredentialsDto) : Promise<string> {
         const { username, password } = authCredentialsDto;
 
         const user = await this.findOne({ username });

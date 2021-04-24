@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthCredentialsDto } from 'src/staff/dto/auth-credentials.dto';
 import { GetStaff } from 'src/staff/get-user.decorator';
 import { StaffService } from 'src/staff/staff.service';
+import { AuthSignInCredentialsDto } from 'src/staff/dto/auth-signin-credentials';
 
 @Controller('staff')
 export class StaffController {
@@ -14,7 +15,7 @@ export class StaffController {
     }
 
     @Post('/signin')
-    signIn(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto) : Promise<{ accessToken: string }> {
+    signIn(@Body(ValidationPipe) authCredentialsDto: AuthSignInCredentialsDto) : Promise<{ accessToken: string }> {
         return this.staffService.signIn(authCredentialsDto);
     }
 

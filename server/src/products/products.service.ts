@@ -45,7 +45,7 @@ export class ProductsService {
         }
     }
 
-    async updateTaskStatus(id: number, createProductDto: CreateProductDto, productBrand: ProductBrands, productType: ProductTypes) : Promise<Products> {
+    async updateProduct(id: number, createProductDto: CreateProductDto, productBrand: ProductBrands, productType: ProductTypes) : Promise<Products> {
         let product = await this.getProductById(id);
         const { title, description, cost } = createProductDto;
         product.title = title;

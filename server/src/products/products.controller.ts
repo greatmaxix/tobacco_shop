@@ -42,6 +42,6 @@ export class ProductsController {
         @GetProductBrand() productBrand: ProductBrands,
         @GetProductType() productType: ProductTypes,
     ) : Promise<Products> {
-        return this.productsService.updateTaskStatus(id, createProductDto, productBrand, productType);
+        return this.productsService.updateProduct(id, createProductDto, productBrand, productType);
     }
 }

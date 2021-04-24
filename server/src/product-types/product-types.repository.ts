@@ -6,8 +6,12 @@ import { CreateProductTypeDto } from "./dto/create-product-type.dto";
 @EntityRepository(ProductTypes)
 export class ProductTypesRepository extends Repository<ProductTypes> {
     async getProductTypes(filterDto: GetProductTypesFilterDto) : Promise<ProductTypes[]> {
-        const { type } = filterDto;
+        const { ids, type } = filterDto;
         const query = this.createQueryBuilder('product_types');
+
+        if (ids) {
+            query.andWhereInIds(ids);
+        }
 
         if (type) {
             query.andWhere('product_types.type = :type', { type });

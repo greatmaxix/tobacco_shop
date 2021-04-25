@@ -10,9 +10,24 @@ import SignUpPage from './pages/signup/SignUpPage';
 function App() {
   return (
     <Fragment>
-      <Nav>
+      <Nav
+        // activeKey="/home"
+        onSelect={(selectedKey) => {
+          if (selectedKey === "logout") {
+            localStorage.removeItem("accessToken");
+          }
+        }}
+      >
         <Nav.Item>
           <Link className="nav-link" to="/products">Products</Link>
+        </Nav.Item>
+        <Nav.Item>
+          {localStorage.getItem('accessToken') ?
+            <Nav.Link eventKey="logout">
+              Logout
+          </Nav.Link>
+            : ''
+          }
         </Nav.Item>
       </Nav>
       <div className="container-fluid">

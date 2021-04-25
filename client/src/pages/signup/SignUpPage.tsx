@@ -3,8 +3,6 @@ import { inject } from 'mobx-react';
 import { Form, Button, Alert } from "react-bootstrap";
 
 @inject('userStore', 'routerStore')
-
-@inject('userStore', 'routerStore')
 export default class SignUpPage extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -27,8 +25,8 @@ export default class SignUpPage extends React.Component<any, any> {
         }
     };
 
-    goToSignUp = () => {
-        this.props.routerStore.push('/signup')
+    goToSignIn = () => {
+        this.props.routerStore.push('/signin')
     };
 
     render() {
@@ -40,9 +38,16 @@ export default class SignUpPage extends React.Component<any, any> {
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" onChange={e => this.setState({ username: e.target.value })} />
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                        </Form.Text>
+                    </Form.Group>
+                    
+                    <Form.Group controlId="formBasicFirstName">
+                        <Form.Label>First name</Form.Label>
+                        <Form.Control type="text" placeholder="Enter first name" onChange={e => this.setState({ first_name: e.target.value })} />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicLastName">
+                        <Form.Label>First name</Form.Label>
+                        <Form.Control type="text" placeholder="Enter last name" onChange={e => this.setState({ last_name: e.target.value })} />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
@@ -50,10 +55,10 @@ export default class SignUpPage extends React.Component<any, any> {
                         <Form.Control type="password" placeholder="Password" onChange={e => this.setState({ password: e.target.value })} />
                     </Form.Group>
                     <Button variant="primary" onClick={this.submit}>
-                        Sign in
+                        Sign Up
                     </Button>
-                    <Button onClick={this.goToSignUp}>
-                        Register
+                    <Button onClick={this.goToSignIn}>
+                        Login
                     </Button>
                     { errorMessage ?
                     <Alert variant="danger" dismissible>

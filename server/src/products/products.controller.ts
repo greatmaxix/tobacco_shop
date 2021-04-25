@@ -20,6 +20,13 @@ export class ProductsController {
         return this.productsService.getProducts(filterDto);
     }
 
+    @Get('/:id')
+    getProductsById(
+        @Param('id', ParseIntPipe) id: number,
+    ) : Promise<Products> {
+        return this.productsService.getProductById(id);
+    }
+
     @Post()
     @UseGuards(AuthGuard())
     createProduct(

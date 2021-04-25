@@ -25,7 +25,9 @@ export class ProductsRepository extends Repository<Products> {
 
         query.limit(filterDto.limit ? filterDto.limit : 10);
         query.offset(filterDto.offset ? filterDto.offset : 0);
-
+        query.leftJoinAndSelect("products.productBrand", "productBrand");
+        query.leftJoinAndSelect("products.productType", "productType");
+        query.leftJoinAndSelect("products.images", "images", "images.imageable_type = 'products'")
         const products = await query.getMany();
         return products;
     }

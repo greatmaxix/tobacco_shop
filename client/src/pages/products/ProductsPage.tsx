@@ -1,10 +1,11 @@
 import React from "react";
-import { Card } from 'react-bootstrap'
+import { Card, Carousel } from 'react-bootstrap'
 import { inject } from 'mobx-react';
 import ProductsService from "../../services/productsService";
 import { ProductType } from "../../types/ProductType";
 import * as base64ArrayBuffer from 'base64-arraybuffer';
 import ImagesService from "../../services/imagesService";
+import { ImageType } from "../../types/ImageType";
 type ProductsPageState = {
     products: ProductType[],
     service: ProductsService,
@@ -29,62 +30,60 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
     async reload() {
         let result = await this.state.service.fetchProducts({ title: null, product_types_id: null, product_brands_id: null });
         let products: ProductType[] = [];
-        let productIds: number[] = [];
-        let images: any[] = [];
+        // let images: any[] = [];
         if (result && result.data && result.data.length > 0) {
             for (let i = 0; i < result.data.length; i++) {
                 const element = result.data[i];
-                productIds.push(element.id);
+                let imagesResult =  await this.state.imageService.fetchImages({
+                    "imageable_type": "products",
+                    "imageable_id": element.id
+                });
                 products.push({
                     id: element.id,
-                    title:element.title,
+                    title: element.title,
                     description: element.description,
                     cost: element.cost,
                     updated_at: element.updated_at,
                     created_at: element.created_at,
                     productBrand: element.productBrand,
                     productType: element.productType,
-                    images: element.images,
+                    images: imagesResult && imagesResult.data && imagesResult.data.length > 0 ? imagesResult.data : [],
                 });
-                
-            }
-        }
-        let imagesResult = await this.state.imageService.fetchImages({
-            "imageable_type": "products",
-            "imageable_id": productIds
-        });
-        if (imagesResult && imagesResult.data && imagesResult.data.length > 0) {
-            for (let i = 0; i < imagesResult.data.length; i++) {
-                const element = imagesResult.data[i];
-                images.push({
-                    id: element.id,
-                    alt_text: element.alt_text,
-                    encoding: element.encoding,
-                    imageable_id: element.imageable_id,
-                    imageable_type: element.imageable_type,
-                    originalname: element.originalname,
-                    mimetype: element.mimetype,
-                    image_blob: element.image_blob,
-                });
-                
+
             }
         }
         this.setState({
-            products,
-            images
+            products
         })
+    }
+
+    getProductsCarousel(product: ProductType) {
+        return (
+            <Carousel>
+                {product.images.map((image: ImageType, index) => {
+                    let src = image && image.mimetype &&  image.image_blob && image.image_blob.data ? `data:${image.mimetype};base64,${Buffer.from(image.image_blob.data).toString('base64')}` : '';
+                    return <Carousel.Item>
+                        <img
+                            className="d-block img-thumbnail"
+                            src={src}
+                            alt={image.alt_text}
+                        />
+                        <Carousel.Caption>
+                            <h3>{product.cost + " тг"}</h3>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                })}
+            </Carousel>
+        )
     }
 
     getProductsCard(): any[] {
         return this.state.products.map((product: ProductType, index) => {
-            // const reader = new FileS();
-            if (product.images && product.images[0])
-                console.log(product.images[0].image_blob);
-            // let other = btoa(String.fromCharCode.apply(null, product.images[0].image_blob.data!));
-            let srt = this.state.images && this.state.images.length > 0 ? `data:${this.state.images[0].mimetype};base64,${Buffer.from(this.state.images[0].image_blob.data).toString('base64')}` : '';
-            return <Card key={index}>
+            return <Card key={index} style={{width: '600px'}}>
                 <Card.Body>
-                    <Card.Img variant="top" src={srt} />
+                    {this.getProductsCarousel(product)}
+                </Card.Body>
+                <Card.Footer className="text-center">
                     <Card.Title>{product.title}</Card.Title>
                     <Card.Text>
                         {product.productBrand.brand_name}
@@ -92,14 +91,16 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
                     <Card.Text>
                         {product.productType.type}
                     </Card.Text>
-                </Card.Body>
+                </Card.Footer>
             </Card>
         })
     }
     render() {
         return (
-            <div>
-                {this.getProductsCard()}
+            <div className="container-fluid">
+                <div className="d-flex flex-wrap align-items-center justify-content-center">
+                    {this.getProductsCard()}
+                </div>
             </div>
         );
     }

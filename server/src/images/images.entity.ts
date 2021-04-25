@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Images extends BaseEntity {
@@ -15,5 +15,19 @@ export class Images extends BaseEntity {
     alt_text: string;
 
     @Column({ type: "bytea", nullable: false })
-    image_blob: Buffer;
+    image_blob: any;
+
+    @Column()
+    mimetype: string;
+
+    @Column()
+    originalname: string;
+
+    @Column()
+    encoding: string;
+
+    @ManyToOne(type => Images, imageables => imageables.imageables, {
+        createForeignKeyConstraints: false})
+    @JoinColumn({ name: "imageable_id" })
+    imageables: Images;
 }

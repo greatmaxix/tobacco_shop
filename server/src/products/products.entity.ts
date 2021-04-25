@@ -3,6 +3,7 @@ import { ProductTypes } from "src/product-types/product-types.entity";
 import { ProductWarehouse } from "src/product-warehouse/product-warehouse.entity";
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ProductBrands } from "src/product-brands/product-brands.entity";
+import { Images } from "src/images/images.entity";
 
 @Entity()
 export class Products extends BaseEntity {
@@ -35,4 +36,7 @@ export class Products extends BaseEntity {
 
     @Column({ type: 'timestamp', nullable: true })
     updated_at: Date;
+
+    @OneToMany(type => Images, images => images.imageables, { eager: false })
+    images: Images[];
 }

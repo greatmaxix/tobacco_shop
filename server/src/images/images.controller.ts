@@ -13,7 +13,7 @@ export class ImagesController {
 
     @Get()
     getImages(
-        @Body() filterDto: GetImagesFilterDto,
+        @Query() filterDto: GetImagesFilterDto,
     ) : Promise<Images[]> {
         return this.imagesService.getImages(filterDto);
     }

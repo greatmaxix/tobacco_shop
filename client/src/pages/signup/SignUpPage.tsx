@@ -10,14 +10,16 @@ export default class SignUpPage extends React.Component<any, any> {
             username: '',
             password: '',
             errorMesssage: null,
+            first_name: '',
+            last_name: '',
         };
     }
 
     submit = async () => {
         this.setState({ errorMessage: null });
-        const { username, password } = this.state;
+        const { username, first_name, last_name, password } = this.state;
         try {
-            await this.props.userStore.signin(username, password);
+            await this.props.userStore.signup({username, first_name, last_name, password});
             this.props.routerStore.push('/products');
         } catch (error) {
             const errorMessage = error.response.data.message;
@@ -36,8 +38,8 @@ export default class SignUpPage extends React.Component<any, any> {
             <div className="container-fluid">
                 <Form>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" onChange={e => this.setState({ username: e.target.value })} />
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control type="text" placeholder="Enter username" onChange={e => this.setState({ username: e.target.value })} />
                     </Form.Group>
                     
                     <Form.Group controlId="formBasicFirstName">
@@ -57,8 +59,8 @@ export default class SignUpPage extends React.Component<any, any> {
                     <Button variant="primary" onClick={this.submit}>
                         Sign Up
                     </Button>
-                    <Button onClick={this.goToSignIn}>
-                        Login
+                    <Button onClick={this.goToSignIn} className="ml-2">
+                        Already have account? Login
                     </Button>
                     { errorMessage ?
                     <Alert variant="danger" dismissible>

@@ -9,8 +9,8 @@ export default class AuthService extends BaseHttpService {
     return result.data.username;
   }
 
-  async signup(username: string, password: string) {
-    await axios.post(`${this.BASE_URL}/staff/signup`, { username, password });
+  async signup({username, first_name, last_name, password}: any) {
+    await axios.post(`${this.BASE_URL}/staff/signup`, { username, first_name, last_name, password });
   }
 
   async signout() {

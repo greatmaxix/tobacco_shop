@@ -4,6 +4,9 @@ import './App.css';
 import ProductsPage from './pages/products/ProductsPage';
 import ProductsViewPage from './pages/products/ProductViewPage';
 import SignInPage from './pages/signin/SignInPage';
+import { Nav } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
+import SignUpPage from './pages/signup/SignUpPage';
 
 function App() {
   return (
@@ -15,7 +18,7 @@ function App() {
         {/* <Route path="/signup/" component={SignUpPage} /> */}
         {/* <Route exact path="/tasks" component={TasksPage} />
         <Route exact path="/tasks/create" component={CreateTaskPage} /> */}
-      </Fragment>
+    </Fragment>
   );
 }
 

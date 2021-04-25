@@ -6,6 +6,7 @@ import { ProductType } from "../../types/ProductType";
 import ImagesService from "../../services/imagesService";
 import { ImageType } from "../../types/ImageType";
 import {Link} from "react-router-dom";
+import blankProduct from '../../assets/blankProduct.jpg';
 type ProductsPageState = {
     products: ProductType[],
     service: ProductsService,
@@ -34,7 +35,7 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
         if (result && result.data && result.data.length > 0) {
             for (let i = 0; i < result.data.length; i++) {
                 const element = result.data[i];
-                let imagesResult =  await this.state.imageService.fetchImages({
+                let imagesResult = await this.state.imageService.fetchImages({
                     "imageable_type": "products",
                     "imageable_id": element.id
                 });
@@ -60,8 +61,8 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
     getProductsCarousel(product: ProductType) {
         return (
             <Carousel>
-                {product.images.map((image: ImageType, index) => {
-                    let src = image && image.mimetype &&  image.image_blob && image.image_blob.data ? `data:${image.mimetype};base64,${Buffer.from(image.image_blob.data).toString('base64')}` : '';
+                {product.images.length > 0 ? product.images.map((image: ImageType, index) => {
+                    let src = image && image.mimetype && image.image_blob && image.image_blob.data ? `data:${image.mimetype};base64,${Buffer.from(image.image_blob.data).toString('base64')}` : '';
                     return <Carousel.Item>
                         <img
                             className="d-block img-thumbnail"
@@ -72,14 +73,23 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
                             <h3>{product.cost + " тг"}</h3>
                         </Carousel.Caption>
                     </Carousel.Item>
-                })}
+                }) : <Carousel.Item>
+                    <img
+                        className="d-block img-thumbnail"
+                        src={blankProduct}
+                        alt={product.title}
+                    />
+                    <Carousel.Caption>
+                        <h3>{product.cost + " тг"}</h3>
+                    </Carousel.Caption>
+                </Carousel.Item>}
             </Carousel>
         )
     }
 
     getProductsCard(): any[] {
         return this.state.products.map((product: ProductType, index) => {
-            return <Card key={index} style={{width: '600px'}}>
+            return <Card key={index} style={{ width: '600px' }}>
                 <Card.Body>
                     {this.getProductsCarousel(product)}
                 </Card.Body>

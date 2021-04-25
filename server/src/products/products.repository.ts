@@ -4,6 +4,7 @@ import { EntityRepository, Repository } from "typeorm";
 import { CreateProductDto } from "src/products/dto/create-product-filter.dto";
 import { GetProductsFilterDto } from "src/products/dto/get-products-filter.dto";
 import { Products } from "src/products/products.entity";
+import { Images } from "src/images/images.entity";
 
 @EntityRepository(Products)
 export class ProductsRepository extends Repository<Products> {
@@ -27,7 +28,7 @@ export class ProductsRepository extends Repository<Products> {
         query.offset(filterDto.offset ? filterDto.offset : 0);
         query.leftJoinAndSelect("products.productBrand", "productBrand");
         query.leftJoinAndSelect("products.productType", "productType");
-        query.leftJoinAndSelect("products.images", "images", "images.imageable_type = 'products'")
+        query.leftJoinAndSelect(Images, "images", "images.imageable_type = 'products' and images.imageable_id = products.id")
         const products = await query.getMany();
         return products;
     }

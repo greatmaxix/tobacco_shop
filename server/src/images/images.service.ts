@@ -16,12 +16,15 @@ export class ImagesService {
         return this.imagesRepository.getImages(filterDto);
     }
 
-    async createImage(imageBuffer: Buffer, createImageDto: CreateImageDto) : Promise<Images> {
+    async createImage(imageBuffer: any, createImageDto: CreateImageDto) : Promise<Images> {
         let image = new Images();
         image.imageable_id = createImageDto.imageable_id;
         image.imageable_type = createImageDto.imageable_type;
         image.alt_text = createImageDto.alt_text;
-        image.image_blob = imageBuffer;
+        image.image_blob = imageBuffer.buffer;
+        image.mimetype = imageBuffer.mimetype;
+        image.originalname = imageBuffer.originalname;
+        image.encoding = imageBuffer.encoding;
         await image.save();
         return image;
     }

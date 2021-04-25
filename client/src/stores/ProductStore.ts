@@ -14,6 +14,7 @@ export default class ProductStore {
   async fetchProducts(data: any) {
     const result: any = await this.productService.fetchProducts(data);
     this.products = result.data && result.data.length > 0 ? result.data : [];
+    return this.products;
   }
 
   @action

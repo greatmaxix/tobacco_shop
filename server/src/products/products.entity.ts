@@ -37,6 +37,6 @@ export class Products extends BaseEntity {
     @Column({ type: 'timestamp', nullable: true })
     updated_at: Date;
 
-    @OneToMany(type => Images, images => images.imageables)
-    images: Images;
+    @OneToMany(type => Images, images => images.imageables, { eager: false })
+    images: Images[];
 }

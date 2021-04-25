@@ -15,9 +15,19 @@ export class Images extends BaseEntity {
     alt_text: string;
 
     @Column({ type: "bytea", nullable: false })
-    image_blob: Buffer;
+    image_blob: any;
 
-    @ManyToOne(type => Images, imageables => imageables.imageables)
+    @Column()
+    mimetype: string;
+
+    @Column()
+    originalname: string;
+
+    @Column()
+    encoding: string;
+
+    @ManyToOne(type => Images, imageables => imageables.imageables, {
+        createForeignKeyConstraints: false})
     @JoinColumn({ name: "imageable_id" })
     imageables: Images;
 }

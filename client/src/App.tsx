@@ -32,10 +32,10 @@ function App() {
         </Nav.Item>
       </Nav>
       <div className="container-fluid">
-        <Route path="/" component={ProductsPage} />
+        <Route exact path="/" component={ProductsPage} />
         <Route exact path="/signin" component={SignInPage} />
-        <Route path="/signup" component={SignUpPage} />
-        <Route path="/products" component={ProductsPage} />
+        <Route exact path="/signup" component={SignUpPage} />
+        <Route exact path="/products" component={ProductsPage} />
       </div>
 
       {/* <Route path="/signup/" component={SignUpPage} /> */}

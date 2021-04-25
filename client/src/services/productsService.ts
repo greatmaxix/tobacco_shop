@@ -13,6 +13,7 @@ type ProductDto = {
 
 export default class ProductsService extends BaseHttpService {
   static url = 'products';
+  static productTypeUrl = 'product-types';
   fetchProducts({ title, product_types_id, product_brands_id }: any) {
     const queryObj: any = {};
 
@@ -41,6 +42,10 @@ export default class ProductsService extends BaseHttpService {
   }
   getProduct(id: number) {
     return this.get(ProductsService.url + `/${id}`);
+  }
+
+  getProductType(id: number) {
+    return this.get(ProductsService.productTypeUrl + `/${id}`);
   }
 
   createProduct(data: ProductDto) {

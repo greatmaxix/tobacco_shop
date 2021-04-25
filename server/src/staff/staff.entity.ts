@@ -2,7 +2,7 @@ import { Invoices } from "src/invoices/invoices.entity";
 import { Roles } from "src/roles/roles.entity";
 import { Shops } from "src/shops/shops.entity";
 import { StaffMobiles } from "src/staff-mobiles/staff-mobiles.entity";
-import { BaseEntity, Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 import * as bcrypt from 'bcrypt';
 
 @Entity()
@@ -33,10 +33,12 @@ export class Staff extends BaseEntity {
     salt: string;
 
     @ManyToMany(type => Roles, roles => roles.staff, { eager: false })
-    roles: Roles;
+    @JoinTable()
+    roles: Roles[];
 
     @ManyToMany(type => Shops, shops => shops.staff, { eager: false })
-    shops: Shops;
+    @JoinTable()
+    shops: Shops[];
 
     @OneToMany(type => StaffMobiles, staffMobiles => staffMobiles.staff, { eager: false })
     staffMobiles: StaffMobiles;

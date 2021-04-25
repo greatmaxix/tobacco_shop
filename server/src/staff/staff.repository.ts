@@ -33,7 +33,7 @@ export class StaffRepository extends Repository<Staff> {
     async validateUserPassword(authCredentialsDto: AuthCredentialsDto | AuthSignInCredentialsDto) : Promise<string> {
         const { username, password } = authCredentialsDto;
 
-        const user = await this.findOne({ username });
+        const user = await this.findOne({ where: {username}, relations: ['roles'] });
 
         if (user && await user.validatePassword(password)) {
             return user.username;

@@ -32,12 +32,15 @@ export default class ProductsService extends BaseHttpService {
     return this.get(ProductsService.url + (queryStr ? `?${queryStr}` : ''));
   }
 
-  async deleteProducts(id: number) {
+  async deleteProducts(id: number){
     await this.delete(ProductsService.url + `/${id}`);
   }
 
   updateProduct(id: number, data: ProductDto) {
     return this.patch(ProductsService.url + `/${id}`, data);
+  }
+  getProduct(id: number) {
+    return this.get(ProductsService.url + `/${id}`);
   }
 
   createProduct(data: ProductDto) {

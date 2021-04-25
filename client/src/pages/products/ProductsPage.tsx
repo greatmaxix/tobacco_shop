@@ -3,9 +3,9 @@ import { Card, Carousel } from 'react-bootstrap'
 import { inject } from 'mobx-react';
 import ProductsService from "../../services/productsService";
 import { ProductType } from "../../types/ProductType";
-import * as base64ArrayBuffer from 'base64-arraybuffer';
 import ImagesService from "../../services/imagesService";
 import { ImageType } from "../../types/ImageType";
+import {Link} from "react-router-dom";
 import blankProduct from '../../assets/blankProduct.jpg';
 type ProductsPageState = {
     products: ProductType[],
@@ -102,6 +102,7 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
                         {product.productType.type}
                     </Card.Text>
                 </Card.Footer>
+                <Link to={"/products/" + product.id} className="btn btn-success">choose</Link>
             </Card>
         })
     }

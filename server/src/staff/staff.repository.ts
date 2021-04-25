@@ -8,12 +8,12 @@ import { AuthSignInCredentialsDto } from 'src/staff/dto/auth-signin-credentials'
 @EntityRepository(Staff)
 export class StaffRepository extends Repository<Staff> {
     async signUp(authCredentialsDto: AuthCredentialsDto) : Promise<void> {
-        const { username, staff_first_name, staff_last_name, password } = authCredentialsDto;
+        const { username, first_name, last_name, password } = authCredentialsDto;
 
         const staff = new Staff();
         staff.username = username;
-        staff.staff_first_name = staff_first_name;
-        staff.staff_last_name = staff_last_name;
+        staff.staff_first_name = first_name;
+        staff.staff_last_name = last_name;
         staff.salt = await bcrypt.genSalt();
         staff.password = await this.hashPassword(password, staff.salt);
 

@@ -15,6 +15,13 @@ export class ProductTypesController {
         return this.productTypesService.getProductTypes(filterDto);
     }
 
+    @Get('/:id')
+    getProductTypesById(
+        @Param('id', ParseIntPipe) id: number,
+    ) : Promise<ProductTypes> {
+        return this.productTypesService.getProductTypeById(id);
+    }
+
     @Post()
     createProductType(
         @Body() createProductTypeDto: CreateProductTypeDto,

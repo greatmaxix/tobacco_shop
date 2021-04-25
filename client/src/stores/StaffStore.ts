@@ -15,8 +15,8 @@ export default class StaffStore {
   }
 
   @action
-  async signup(username: string, password: string) {
-    return this.authService.signup(username, password);
+  async signup({username, first_name, last_name, password}: any) {
+    return this.authService.signup({username, first_name, last_name, password});
   }
 
   @action

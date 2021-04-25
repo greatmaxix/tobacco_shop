@@ -9,10 +9,17 @@ export class ProductBrandsController {
     constructor(private productBrandsService: ProductBrandsService) {};
 
     @Get()
-    getProductTypes(
+    getProductBrands(
         filterDto: GetProductBrandsFilterDto,
     ) : Promise<ProductBrands[]> {
         return this.productBrandsService.getProductBrands(filterDto);
+    }
+    
+    @Get('/:id')
+    getProductBrandById(
+        @Param('id', ParseIntPipe) id: number,
+    ) : Promise<ProductBrands> {
+        return this.productBrandsService.getProductBrandById(id);
     }
 
     @Post()

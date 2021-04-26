@@ -24,11 +24,13 @@ export class InvoicesRepository extends Repository<Invoices> {
     }
 
     async createInvoice(createInvoiceDto: CreateInvoiceDto, staff: Staff) : Promise<Invoices> {
-        const { products } = createInvoiceDto;
+        const { productInvoices, total_cost } = createInvoiceDto;
+        console.log(createInvoiceDto);
         const invoice = new Invoices();
-        invoice.products = products;
-        invoice.total_cost = this.getProductsTotalCost(products);
+        invoice.productInvoices = productInvoices;
+        invoice.total_cost = total_cost;
         invoice.staff = staff;
+        console.log(invoice);
         await invoice.save();
 
         return invoice;
@@ -37,7 +39,7 @@ export class InvoicesRepository extends Repository<Invoices> {
     async updateInvoice(id: number, createInvoiceDto: CreateInvoiceDto, staff: Staff) : Promise<Invoices> {
         const { products } = createInvoiceDto;
         const invoice = new Invoices();
-        invoice.products = products;
+        // invoice.products = products;
         invoice.total_cost = this.getProductsTotalCost(products);
         invoice.staff = staff;
         await invoice.save();

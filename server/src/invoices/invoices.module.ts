@@ -1,16 +1,14 @@
 import { Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvoicesController } from 'src/invoices/invoices.controller';
 import { InvoicesRepository } from 'src/invoices/invoices.repository';
 import { InvoicesService } from 'src/invoices/invoices.service';
+import { StaffModule } from 'src/staff/staff.module';
 
 @Module({
   imports: [
-    PassportModule.register({
-      defaultStrategy: 'jwt',
-    }),
     TypeOrmModule.forFeature([InvoicesRepository]),
+    StaffModule
   ],
   controllers: [InvoicesController],
   providers: [InvoicesService]

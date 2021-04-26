@@ -1,6 +1,6 @@
 import { Invoices } from "src/invoices/invoices.entity";
 import { Products } from "src/products/products.entity";
-import { BaseEntity, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class ProductInvoice extends BaseEntity {
@@ -12,4 +12,7 @@ export class ProductInvoice extends BaseEntity {
 
     @ManyToOne(type => Invoices, invoices => invoices.products, { eager: false })
     invoices: Invoices;
+
+    @Column({nullable: true})
+    cost: number;
 }

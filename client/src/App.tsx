@@ -36,6 +36,7 @@ function App() {
         <Route exact path="/signin" component={SignInPage} />
         <Route exact path="/signup" component={SignUpPage} />
         <Route exact path="/products" component={ProductsPage} />
+        <Route exact path="/products/:id" component={ProductsViewPage} />
       </div>
     </Fragment>
   );

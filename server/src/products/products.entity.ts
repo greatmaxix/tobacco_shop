@@ -4,6 +4,7 @@ import { ProductWarehouse } from "src/product-warehouse/product-warehouse.entity
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ProductBrands } from "src/product-brands/product-brands.entity";
 import { Images } from "src/images/images.entity";
+import { ProductInvoice } from "src/product-invoice/product-invoice.entity";
 
 @Entity()
 export class Products extends BaseEntity {
@@ -25,8 +26,12 @@ export class Products extends BaseEntity {
     @ManyToOne(type => ProductTypes, productTypes => productTypes.products, { eager: false })
     productType: ProductTypes;
 
-    @OneToMany(type => Invoices, invoices => invoices.products, { eager: false })
-    invoices: Invoices;
+    @OneToMany(type => ProductInvoice, productInvoices => productInvoices.invoices, { eager: false })
+    productInvoices: ProductInvoice[];
+
+    get invoices(): Invoices[] {
+        return this.productInvoices?.map(productInvoice => productInvoice.invoices)
+    }
 
     @OneToMany(type => ProductWarehouse, productWarehouse => productWarehouse.products, { eager: false })
     productWarehouse: ProductWarehouse;

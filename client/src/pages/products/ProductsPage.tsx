@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, Button, Card, Carousel, Form } from 'react-bootstrap'
+import { Accordion, Button, Card, Carousel, Form, Table } from 'react-bootstrap'
 import { inject } from 'mobx-react';
 import ProductsService from "../../services/productsService";
 import { ProductType } from "../../types/ProductType";
@@ -9,11 +9,13 @@ import { Link } from "react-router-dom";
 import blankProduct from '../../assets/blankProduct.jpg';
 import { ProductBrandType } from "../../types/ProductBrandType";
 import { ProductTypeType } from "../../types/ProductTypeType";
+import InvoicesService from "../../services/invoicesService";
 
 type ProductsPageState = {
     products: ProductType[],
     service: ProductsService,
     imageService: ImagesService,
+    invoiceService: InvoicesService,
     images: any[],
     newTitle: string,
     newDescription: string,
@@ -24,6 +26,7 @@ type ProductsPageState = {
     types: ProductTypeType[],
     newImage: any,
     uploadedFile: any,
+    invoiceProducts: ProductType[],
 }
 
 @inject('userStore', 'routerStore', 'imagesStore')
@@ -34,6 +37,7 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
             products: [],
             service: new ProductsService(this.props.routerStore),
             imageService: new ImagesService(this.props.routerStore),
+            invoiceService: new InvoicesService(this.props.routerStore),
             images: [],
             newTitle: '',
             newDescription: '',
@@ -43,7 +47,8 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
             newBrandId: 1,
             newTypeId: 1,
             newImage: null,
-            uploadedFile: null
+            uploadedFile: null,
+            invoiceProducts: [],
         };
     }
     private reader = new FileReader();
@@ -145,6 +150,73 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
         }
     }
 
+    addToInvoice(product: ProductType) {
+        let invoiceProducts = this.state.invoiceProducts;
+        invoiceProducts.push(product);
+        this.setState({
+            invoiceProducts
+        })
+    }
+
+    removeFromInvoice(product: ProductType) {
+        let invoiceProducts: ProductType[] = this.state.invoiceProducts;
+        let foundIndex = invoiceProducts.findIndex(el => el.id === product.id);
+        if (foundIndex > -1) invoiceProducts = invoiceProducts.splice(foundIndex, 1);
+        this.setState({
+            invoiceProducts
+        })
+    }
+
+    getInvoiceProductCost() : number {
+        let cost = 0;
+        for (let i = 0; i < this.state.invoiceProducts.length; i++) {
+            const element = this.state.invoiceProducts[i];
+            cost += element.cost;
+        }
+        return cost;
+    }
+
+    getTableInvoiceProducts() {
+        let alreadyRendered: number[] = [];
+        let unique: ProductType[] = [];
+        for (let i = 0; i < this.state.invoiceProducts.length; i++) {
+            const element = this.state.invoiceProducts[i];
+            if (!alreadyRendered.includes(element.id)) {
+                unique.push(element);
+                alreadyRendered.push(element.id);
+            }
+        }
+        return <tbody>
+            {
+                unique.map((el: ProductType, index) => {
+                    return <tr key={index}>
+                        <td>{el.id}</td>
+                        <td>{el.title}</td>
+                        <td>{this.state.invoiceProducts.filter(ip => ip.id === el.id).length}</td>
+                    </tr>
+                })    
+            }
+        </tbody>
+    }
+
+    async createInvoice() {
+        if (this.state.invoiceProducts && this.state.invoiceProducts.length > 0) {
+            let products = [];
+            let total_cost = 0;
+            for (let i = 0; i < this.state.invoiceProducts.length; i++) {
+                const element = this.state.invoiceProducts[i];
+                products.push({
+                    id: element.id,
+                })
+                total_cost += element.cost;
+            }
+            let createdInvoice = await this.state.invoiceService.createInvoice({
+                products,
+                total_cost
+            });
+        }
+    }
+
     getProductsCarousel(product: ProductType) {
         return (
             <Carousel>
@@ -189,7 +261,24 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
                         {product.productType.type}
                     </Card.Text>
                 </Card.Footer>
-                <Link to={"/products/" + product.id} className="btn btn-success">choose</Link>
+                <div className="d-flex flex-row justify-content-around pb-2">
+                    <div className="">
+                        <button className="btn btn-info" onClick={this.addToInvoice.bind(this, product)}>Добавить в счет</button>
+                    </div>
+                    {
+                        this.state.invoiceProducts.find(el => el.id === product.id) ? 
+                        <div className="">
+                            <button className="btn btn-info" onClick={this.removeFromInvoice.bind(this, product)}>Убрать</button>
+                        </div>
+                        :
+                        ''
+                    }
+                    <div className="">
+                        <Link to={"/products/" + product.id} className="btn btn-success">Подробнее</Link>
+                    </div>
+                    
+                    
+                </div>
             </Card>
         })
     }
@@ -244,10 +333,6 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
                                                 <Form.File id="formcheck-api-regular">
                                                     <Form.File.Label>Выберите изображение файла</Form.File.Label>
                                                     <Form.File.Input onChange={this.handleFiles.bind(this)}/>
-
-                                                    {/* <ReactFileReader type="button" base64={true} fileTypes={[".jpeg",".png"]} handleFiles={this.handleFiles.bind(this)}>
-                                                        <button className='btn' type="button">Выбрать</button>
-                                                    </ReactFileReader> */}
                                                 </Form.File>
                                             </div>
                                             <Button variant="primary" onClick={this.createProduct.bind(this)} className="mr-2">
@@ -268,7 +353,24 @@ export default class ProductsPage extends React.Component<any, ProductsPageState
                                 </Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0">
-                                    <Card.Body>Hello! I'm the body</Card.Body>
+                                    <Card.Body>
+                                        <div className="d-flex flex-row justify-content-around pb-2">
+                                            <div className="">Счет на сумму: {this.getInvoiceProductCost()} тг</div>
+                                            <button className="btn btn-info" onClick={this.createInvoice.bind(this)}>Списать</button>
+                                        </div>
+                                        <Table striped bordered hover size="sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>id</th>
+                                                    <th>Название продукта</th>
+                                                    <th>Кол-во</th>
+                                                </tr>
+                                            </thead>
+                                            {
+                                                this.getTableInvoiceProducts()
+                                            }
+                                        </Table>
+                                    </Card.Body>
                                 </Accordion.Collapse>
                             </Card>
                         </Accordion>

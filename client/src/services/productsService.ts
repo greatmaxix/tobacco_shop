@@ -1,19 +1,19 @@
 import BaseHttpService from './baseHttpService';
 import queryString from 'query-string';
-
-
+import { ProductType } from '../types/ProductType';
 
 type ProductDto = {
   title: null | string,
   description: null | string,
   cost: null | number,
-  productBrandId: null | any,
-  productTypeId: null | any,
+  productBrand: null | any,
+  productType: null | any,
 }
 
 export default class ProductsService extends BaseHttpService {
   static url = 'products';
   static productTypeUrl = 'product-types';
+  static productBrandUrl = 'product-brands';
   fetchProducts({ title, product_types_id, product_brands_id }: any) {
     const queryObj: any = {};
 
@@ -37,18 +37,48 @@ export default class ProductsService extends BaseHttpService {
     await this.delete(ProductsService.url + `/${id}`);
   }
 
-  updateProduct(id: number, data: ProductDto) {
-    return this.patch(ProductsService.url + `/${id}`, data);
+  async updateProduct(id: number, data: ProductDto) {
+    return await this.patch(ProductsService.url + `/${id}`, data);
   }
-  getProduct(id: number) {
-    return this.get(ProductsService.url + `/${id}`);
-  }
-
-  getProductType(id: number) {
-    return this.get(ProductsService.productTypeUrl + `/${id}`);
+  async getProduct(id: number) {
+    return await this.get(ProductsService.url + `/${id}`);
   }
 
-  createProduct(data: ProductDto) {
-    return this.post(ProductsService.url, data);
+  async createProduct(data: ProductDto) : Promise<any> {
+    return await this.post(ProductsService.url, data);
+  }
+
+  async fetchProductTypes({type}: any) {
+    const queryObj: any = {};
+
+    if (type) {
+      queryObj.type = type;
+    }
+
+    const queryStr = queryString.stringify(queryObj);
+    return this.get(ProductsService.productTypeUrl + (queryStr ? `?${queryStr}` : ''));
+  }
+
+  async getProductType(id: number) {
+    return await this.get(ProductsService.productTypeUrl + `/${id}`);
+  }
+
+  async fetchProductBrands({ids, brand_name, brand_description}: any) {
+    const queryObj: any = {};
+
+    if (ids) {
+      queryObj.ids = ids;
+    }
+
+    if (brand_name) {
+      queryObj.brand_name = brand_name;
+    }
+
+    if (brand_description) {
+      queryObj.brand_description = brand_description;
+    }
+
+    const queryStr = queryString.stringify(queryObj);
+    return this.get(ProductsService.productBrandUrl + (queryStr ? `?${queryStr}` : ''));
   }
 }

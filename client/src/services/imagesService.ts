@@ -1,12 +1,14 @@
 import BaseHttpService from './baseHttpService';
 import queryString from 'query-string';
 
-type ProductDto = {
-  title: null | string,
-  description: null | string,
-  cost: null | number,
-  productBrandId: null | any,
-  productTypeId: null | any,
+type ImageFormData = {
+  imageable_type: null | string,
+  imageable_id: null | number,
+  alt_text: null | string,
+  image_blob: null | any,
+  mimetype?: any,
+  originalname?: any,
+  encoding?: any,
 }
 
 export default class ImagesService extends BaseHttpService {
@@ -30,7 +32,7 @@ export default class ImagesService extends BaseHttpService {
     await this.delete(ImagesService.url + `/${id}`);
   }
 
-  uploadImage(data: ProductDto) {
-    return this.post(ImagesService.url, data);
+  async uploadImage(data: any) {
+    return await this.post(ImagesService.url, data);
   }
 }

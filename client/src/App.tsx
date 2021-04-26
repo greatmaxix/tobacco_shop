@@ -37,16 +37,6 @@ function App() {
         <Route exact path="/signup" component={SignUpPage} />
         <Route exact path="/products" component={ProductsPage} />
       </div>
-
-      {/* <Route path="/signup/" component={SignUpPage} /> */}
-      {/* <Route exact path="/tasks" component={TasksPage} />
-        <Route exact path="/" component={SignInPage} />
-        <Route path="/signin" component={SignInPage} />
-        <Route path="/products" component={ProductsPage}/>
-        <Route path="/productsbyid/:id" component={ProductsViewPage}/>
-        {/* <Route path="/signup/" component={SignUpPage} /> */}
-      {/* <Route exact path="/tasks" component={TasksPage} />
-        <Route exact path="/tasks/create" component={CreateTaskPage} /> */}
     </Fragment>
   );
 }

@@ -6,7 +6,10 @@ import { GetProductBrandsFilterDto } from "src/product-brands/dto/get-product-br
 @EntityRepository(ProductBrands)
 export class ProductBrandsRepository extends Repository<ProductBrands> {
     async getProductBrands(filterDto: GetProductBrandsFilterDto) : Promise<ProductBrands[]> {
-        const { ids, brand_name, brand_description } = filterDto;
+        console.log(filterDto);
+        const ids = filterDto ? filterDto.ids : null;
+        const brand_name = filterDto ? filterDto.brand_name : null;
+        const brand_description = filterDto ? filterDto.brand_description : null;
         const query = this.createQueryBuilder('product_brands');
 
         if (ids) {

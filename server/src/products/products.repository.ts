@@ -29,6 +29,7 @@ export class ProductsRepository extends Repository<Products> {
         query.leftJoinAndSelect("products.productBrand", "productBrand");
         query.leftJoinAndSelect("products.productType", "productType");
         query.leftJoinAndSelect(Images, "images", "images.imageable_type = 'products' and images.imageable_id = products.id")
+        query.orderBy('products.id', 'DESC');
         const products = await query.getMany();
         return products;
     }

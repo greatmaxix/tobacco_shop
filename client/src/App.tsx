@@ -7,6 +7,7 @@ import SignInPage from './pages/signin/SignInPage';
 import { Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import SignUpPage from './pages/signup/SignUpPage';
+import BrandsPage from './pages/brands/BrandsPage';
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
             <Nav.Link eventKey="logout">
               Logout
           </Nav.Link>
-            : ''
+            :
+            <Link className="nav-link" to="/signin">Sign in</Link>
           }
         </Nav.Item>
       </Nav>
@@ -37,6 +39,7 @@ function App() {
         <Route exact path="/signup" component={SignUpPage} />
         <Route exact path="/products" component={ProductsPage} />
         <Route exact path="/products/:id" component={ProductsViewPage} />
+        <Route exact path="/brands" component={BrandsPage} />
       </div>
     </Fragment>
   );

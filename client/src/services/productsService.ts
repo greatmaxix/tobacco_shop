@@ -81,4 +81,8 @@ export default class ProductsService extends BaseHttpService {
     const queryStr = queryString.stringify(queryObj);
     return this.get(ProductsService.productBrandUrl + (queryStr ? `?${queryStr}` : ''));
   }
+
+  async createBrand(data: any) : Promise<any> {
+    return await this.post(ProductsService.productBrandUrl, data);
+  }
 }

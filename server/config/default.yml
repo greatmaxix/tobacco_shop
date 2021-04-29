@@ -2,9 +2,9 @@ server:
   port: 8080
 
 db:
-  type: 'postgres'
-  port: 5433
-  database: 'tobacco_shop'
+  type: 'oracle'
+  port: 1521
+  database: 'lab4'
 
 jwt:
   expiresIn: 3600

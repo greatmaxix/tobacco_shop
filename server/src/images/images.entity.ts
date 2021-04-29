@@ -14,7 +14,7 @@ export class Images extends BaseEntity {
     @Column()
     alt_text: string;
 
-    @Column({ type: "bytea", nullable: false })
+    @Column({ type: "blob", nullable: false })
     image_blob: any;
 
     @Column()

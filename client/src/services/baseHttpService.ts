@@ -2,7 +2,7 @@ import axios from 'axios';
 import { RouterStore } from 'mobx-react-router';
 
 export default class BaseHttpService {
-  protected BASE_URL = 'http://192.168.1.8:8080';
+  protected BASE_URL = 'http://localhost:8080';
 
   protected routerStore: RouterStore;
   protected _accessToken: string | null;

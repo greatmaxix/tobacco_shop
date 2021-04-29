@@ -11,6 +11,6 @@ export class Audit extends BaseEntity {
     @Column({ type: 'timestamp', nullable: true })
     actionDate: Date;
 
-    @Column({ type: 'json', nullable: true })
-    payload: Object;
+    @Column({ nullable: true })
+    payload: string;
 }

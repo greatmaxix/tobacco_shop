@@ -2,9 +2,11 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as  config from 'config';
 import { AppModule } from './app.module';
+const oracledb = require('oracledb');
 
 async function bootstrap() {
   const serverConfig = config.get('server');
+  oracledb.initOracleClient({libDir: '/opt/oracle/instantclient_21_1'});
 
   const logger = new Logger('bootstrap');
   const app = await NestFactory.create(AppModule);
